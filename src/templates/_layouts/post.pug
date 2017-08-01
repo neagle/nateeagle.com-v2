@@ -1,0 +1,19 @@
+extends default.pug
+
+block content
+	section.column.post
+		article
+			time=moment(date).format('MMMM Do, YYYY')
+			h2=title
+			.content!=content
+
+		#disqus_thread
+			script.
+				var disqus_shortname = 'nateeagle';
+					// disqus_developer = 1;
+
+					(function() {
+							var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+							dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+							(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+					})();

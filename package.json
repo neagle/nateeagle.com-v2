@@ -1,0 +1,32 @@
+{
+  "name": "nateeagle.com",
+  "private": true,
+  "version": "1.0.0",
+  "description": "I am Nate Eagle, and this is my site.",
+  "main": "build.js",
+  "scripts": {
+    "start": "node build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neagle/nateeagle.com.git"
+  },
+  "author": "Nate Eagle <nate@nateeagle.com>",
+  "bugs": {
+    "url": "https://github.com/neagle/nateeagle.com/issues"
+  },
+  "homepage": "https://github.com/neagle/nateeagle.com#readme",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "cheerio": "^0.22.0",
+    "glob": "^7.1.1",
+    "highlight.js": "^9.9.0",
+    "marked": "^0.3.6",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.17.1",
+    "pug": "^2.0.0-beta6",
+    "rmdir-sync": "^1.0.1",
+    "yaml-front-matter": "^3.4.0"
+  }
+}
