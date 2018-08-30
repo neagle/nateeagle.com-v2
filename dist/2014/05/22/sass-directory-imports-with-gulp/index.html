@@ -1,0 +1,64 @@
+<html><head><title>NateEagle.com</title></head><body><header><h1><a class="draw draw-in" href="/">Nate Eagle</a></h1></header><section class="column post"><article><time>May 22nd, 2014</time><h2>Update: Sass Directory Imports With Gulp</h2><div class="content"><p><img src="/images/posts/sass-directory-include.png" class="l-full" style="max-width: 674px;" alt="Screenshot of a directory import"></p>
+<p>I like using <a href="http://sass-lang.com/">Sass</a> so much for writing CSS that I have really only one complaint about the language: it does not, and will not, support <a href="http://en.wikipedia.org/wiki/Glob_%28programming%29">globbing</a> for its <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#import">@imports</a>. <a href="https://twitter.com/nex3">Nathan Weizenbaum</a>, the primary maintainer of Sass, <a href="https://github.com/hcatlin/libsass/issues/156#issuecomment-34229670">explains</a>:</p>
+<blockquote>
+<p>The reference implementation of Sass doesn&#39;t and will not support globbing&hellip; It makes the order that rules are emitted very difficult to reason about and contingent on non-local factors. There does exist <a href="https://github.com/chriseppstein/sass-globbing">a Ruby plugin</a> for it, but I personally discourage its use.</p>
+</blockquote>
+<p>Since it&#39;s not wise to speak ill of one&#39;s betters, I&#39;m not going to waste pixels complaining about this decision. But I use directories of certain kinds of partials as part of my CSS in a way that does not rely on order of inclusion. I have a directory for <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#defining_custom_sass_functions">functions</a>, <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins">mixins</a>, and one for <a href="http://smacss.com/book/type-module">modules</a>. If any CSS from my modules affects elements outside of the container element it&#39;s targeting, that&#39;s a fault of mine, so order should never matter. It&#39;s great that the <a href="https://github.com/chriseppstein/sass-globbing">sass-globbing</a> plugin exists, but it&#39;s for Ruby. I use the much-faster <a href="https://github.com/hcatlin/libsass">libsass</a>, which has a <a href="https://github.com/andrew/node-sass">node wrapper</a>, not just for the speed but also because it&#39;s nice not having any dependencies for projects that aren&#39;t taken care of by <code>npm install</code>.</p>
+<p>Note: it&#39;s at least a little bit irrational how much work I&#39;m willing to put in to avoid having to list things that I already have in a directory. Whether it&#39;s Angular, Express, or Sass, having to create a file and THEN tell some other file that I&#39;ve added it is like nails on a blackboard for me: it&#39;s just not the kind of work I feel I should have to do as a developer. I don&#39;t ever want to add a module, go to my webpage, wonder why it&#39;s not showing up, and realize I forgot to add it to my list of module includes. Can I justify that in terms of actual time cost? Probably not. But I don&#39;t develop just to be efficient: I chose this life because it gives me pleasure to solve problems using code. And I&#39;m perfectly willing to admit that I consider my own pleasure / annoyance when crafting the tools in my toolbox.</p>
+<p>A year ago, I <a href="/2013/03/30/import-a-whole-directory-with-sass-using-grunt/">wrote a simple Grunt plugin</a> to make it possible to import whole directories at once by adding an <code>_all.scss</code> file to any directory you want to import. The grunt task would find any <code>_all.scss</code> files and write <code>@import</code> statements to it for all the other <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#partials">partials</a> it found in that directory. This is an idiomatic hack, but it&#39;s worked really well for me, allowing me to forget that it exists while I develop projects, adding partials to my <code>modules</code> directory as I need them.</p>
+<p>But I recently <a href="/2014/05/08/gulp-pattern-lint/">switched to Gulp</a>, so I needed a new solution. I considered writing a gulp plugin, but with Gulp&#39;s emphasis on just being JavaScript, I realized that it&#39;d probably be trivially simple to just use some JS inside a Gulp task.</p>
+<pre><code class="hljs undefined">var gulp = require('gulp');
+// We'll use the filesystem, path, and glob packages
+var fs = require('fs');
+var path = require('path');
+var glob = require('glob');
+
+...
+
+// Hack the ability to import directories in Sass
+// Find any _all.scss files and write @import statements
+// for all other *.scss files in the same directory
+//
+// Import the whole directory with @import "somedir/all";
+gulp.task('sass-includes', function (callback) {
+    var all = '_all.scss';
+    glob('./client/src/scss/**/' + all, function (error, files) {
+        files.forEach(function (allFile) {
+            // Add a banner to warn users
+            fs.writeFileSync(allFile, '/** This is a dynamically generated file **/\n\n');
+
+            var directory = path.dirname(allFile);
+            var partials = fs.readdirSync(directory).filter(function (file) {
+                return (
+                    // Exclude the dynamically generated file
+                    file !== all &&
+                    // Only include _*.scss files
+                    path.basename(file).substring(0, 1) === '_' &&
+                    path.extname(file) === '.scss'
+                );
+            });
+
+            // Append import statements for each partial
+            partials.forEach(function (partial) {
+                fs.appendFileSync(allFile, '@import "' + partial + '";\n');
+            });
+        });
+    });
+
+    callback();
+});</code></pre><p>This is inside <code>Gulpfile.js</code> in my project root. It accepts a callback and calls it when finished <a href="http://cameronspear.com/blog/handling-sync-tasks-with-gulp-js/">to make the task synchronous</a>. (So that other tasks can list it as a dependency and depend on it being completed before they execute.)</p>
+<pre><code class="hljs undefined">gulp.task('sass', ['sass-includes'], function () {</code></pre><p>The only other thing I had to account for was the <code>watch</code> task: I didn&#39;t want it to get stuck in an infinite loop when it wrote to an <code>*.scss</code> file in response to changes to an <code>*.scss</code> file. So I just excluded <code>_all</code> in the glob that triggered my <code>sass</code> task.</p>
+<pre><code class="hljs undefined">gulp.watch('client/src/scss/**/!(_all).scss', ['sass']);</code></pre><p>After that, I added <code>_all.scss</code> files to the three directories I wanted to be able to import, and including directories was as easy as this again:</p>
+<pre><code class="hljs undefined">@import "functions/all";
+@import "mixins/all";
+@import "rules/modules/all";</code></pre><p>A final note: this isn&#39;t exactly the most Gulpy way of doing things. I&#39;m modifying source files rather than dealing with my Sass files as a stream, modifying them, and passing them on through a pipe to the next process. But since Sass doesn&#39;t just deal with the files in the stream, it grabs imported files from outside the stream, I can&#39;t just find <code>@import</code>s in the stream and expand them myself, because it wouldn&#39;t work on any imported files. But ideally, we&#39;d have a nice <code>gulp-sass-glob</code> plugin that worked that way.</p>
+</div></article><div id="disqus_thread"><script>var disqus_shortname = 'nateeagle',
+	disqus_developer = 1,
+	disqus_url = 'http://nateeagle.com';
+
+	(function() {
+		var d = document, s = d.createElement('script');
+		s.src = `https://${disqus_shortname}.disqus.com/embed.js`;
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();</script></div></section><script src="/bundle.js"></script></body></html>

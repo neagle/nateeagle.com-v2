@@ -3,6 +3,12 @@ html
 		title NateEagle.com
 
 	body
-		h1 Nate Eagle
+		header
+			if home
+				h1.draw.draw-in Nate Eagle
+			else 
+				h1: a.draw.draw-in(href='/') Nate Eagle
 
 		block content
+			
+		script(src='/bundle.js')

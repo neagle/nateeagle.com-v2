@@ -1,0 +1,41 @@
+.draw svg {
+	stroke: #333;
+	stroke-width: 3;
+	stroke-linecap: square;
+	transition: all 1s;
+
+	polyline {
+		transition: all 1s;
+	}
+
+	&:hover {
+		polyline {
+			stroke-dashoffset: 100;
+		}
+	}
+}
+
+.drawn svg {
+	polyline {
+		stroke-dashoffset: 0;
+	}
+}
+
+.draw-in svg {
+	polyline {
+		animation: {
+			name: dash;
+			duration: 1s;
+			//duration: 0;
+			fill-mode: forwards;
+			timing-function: linear;
+			iteration-count: 1;
+		}
+	}
+
+	@keyframes dash {
+		to {
+			stroke-dashoffset: 0;
+		}
+	}
+}

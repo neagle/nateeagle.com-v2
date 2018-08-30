@@ -3,9 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "description": "I am Nate Eagle, and this is my site.",
-  "main": "build.js",
+  "main": "scripts/build-templates.js",
   "scripts": {
-    "start": "node build.js",
+    "start": "node scripts/build-templates.js && webpack-dev-server --open --mode development",
+    "build": "node scripts/build-templates.js && webpack --mode production",
+    "watch": "webpack --watch --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,15 +20,39 @@
   },
   "homepage": "https://github.com/neagle/nateeagle.com#readme",
   "dependencies": {
+    "@babel/core": "^7.0.0-beta.56",
+    "@babel/preset-env": "^7.0.0-beta.56",
+    "babel-loader": "^8.0.0-beta.4",
     "bluebird": "^3.4.7",
+    "browser-sync": "^2.24.6",
     "cheerio": "^0.22.0",
+    "date-fns": "^1.29.0",
     "glob": "^7.1.1",
-    "highlight.js": "^9.9.0",
+    "highlight.js": "^9.12.0",
     "marked": "^0.3.6",
+    "mini-css-extract-plugin": "^0.4.1",
     "mkdirp": "^0.5.1",
     "moment": "^2.17.1",
+    "prettier": "^1.14.0",
+    "prettier-eslint": "^8.8.2",
     "pug": "^2.0.0-beta6",
     "rmdir-sync": "^1.0.1",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.16.5",
+    "webpack-shell-plugin": "^0.5.0",
+    "webpack-watch-files-plugin": "^1.0.2",
     "yaml-front-matter": "^3.4.0"
+  },
+  "prettier": {
+    "useTabs": true,
+    "singleQuote": true,
+    "semi": false
+  },
+  "devDependencies": {
+    "css-loader": "^1.0.0",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
   }
 }

@@ -1,0 +1,45 @@
+---
+title: "NateEagle.com: A blog about life, web development, and go."
+home: true
+---
+extends _layouts/default.pug
+
+block content
+	section.posts
+		h1 Posts
+			=env
+		ul
+			each post in posts.filter(post => post.layout === 'post').reverse()
+				li.post
+					h2: a.title(
+						href=post.url
+					)
+						=post.title
+
+					.excerpt
+					if post.summary
+						=post.summary
+					else
+						=post.content
+
+					time=post.date
+					
+	section.bits
+		h2 Bits
+			ul
+				each post in posts.filter(post => post.layout === 'bit').reverse()
+					li.bit
+						h2: a.title(
+							href=post.url
+						)
+							=post.title
+							
+	section.tags
+		h2 Tags
+			ul
+				each tag in Object.keys(tags).sort()
+					li
+						a(href=`/tags/${tag}`)=tag
+							=' '
+							span.count=`(${tags[tag].length})`
+						

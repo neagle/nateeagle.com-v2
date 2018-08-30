@@ -1,0 +1,32 @@
+<html><head><title>NateEagle.com</title></head><body><header><h1><a class="draw draw-in" href="/">Nate Eagle</a></h1></header><section class="column post"><article><time>September 11th, 2011</time><h2>Color Ripples: a Canvas Toy</h2><div class="content"><p>Here&#39;s a little bit of colorful distraction for a rainy afternoon.</p>
+<iframe style="width: 100%; height: 500px" src="http://jsfiddle.net/nate/dyVPR/embedded/result,js,html"></iframe>
+
+<p>Playing with @canvas@ is fun. However, you may notice, if you glance through the code, that there are really only five lines of code that are canvas-specific. (A few more if you count the setup.)</p>
+<p>{% highlight js %}
+var $canvas = $( &#39;canvas&#39; ),
+    canvas = $canvas[0],
+    ctx = canvas.getContext( &#39;2d&#39; ),</p>
+<pre><code class="hljs undefined">drawPoint = function( x, y, radius, color ) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc( x, y, radius, 0, Math.PI * 2, false );
+    ctx.closePath();
+    ctx.fill();
+}</code></pre><p>{% endhighlight %}</p>
+<p>This is the code for, well, drawing a circle. <em>All</em> of the rest of it is just various math and adjustments on where and how to draw those circles.</p>
+<p>I spent basically all of my highschool math courses messing around with &quot;my graphing calculator&quot;:<a href="http://education.ti.com/educationportal/sites/US/productDetail/us_ti83p.html">http://education.ti.com/educationportal/sites/US/productDetail/us_ti83p.html</a> and &quot;TI Basic&quot;:<a href="http://en.wikipedia.org/wiki/TI-BASIC">http://en.wikipedia.org/wiki/TI-BASIC</a>. I made a little magic eight ball program that gave different responses based on a random number; I made programs to take care of the quadratic equation for me. (Note: I spent more time fussing with the formatting and look of the UI for entering numbers than I did with the calculations - I was a front-end developer in the making!) I finally dropped out of AP Calculus when being clever about my calculator could no longer make up for the fact that I wasn&#39;t learning a lick of math.</p>
+<p>I&#39;m grateful for what exposure I had to code - ultimately, even that time messing with TI Basic helped me find my way to a great career. But I can&#39;t help but wish that somebody - <em>any</em> adult in my life - had noticed that I spent all my time trying vainly to do stuff with computers and said, &quot;You know, that might not be so wholly irrelevant to his future...&quot;</p>
+<p>As far as I can tell, every developer I know fends off multiple unsolicited recruitment emails a month: America needs people to write code and it wants to pay them for it. My school acted like the most important thing about computers was making sure we didn&#39;t check our email on the <em>for-research</em> computers in the library. (I got Saturday school for this once.) Couldn&#39;t the public schools have noticed that education in computers &amp; code might be a good investment back in the &#39;90s?</p>
+<p>Couldn&#39;t there be a whole Math track for kids who&#39;re interested in applying it to code? Can you imagine how much fun it would have been to immediately try out the formula for slope on a visual toy you wrote as homework?</p>
+<p>For that matter: are public schools aware of this <em>now</em>?</p>
+<p>Anyway: I actually had a great highschool Math teacher. Hell, I&#39;d pay a lot of money at this point in my life to go back, sit in that musty portable classroom in Spanaway, Washington and have him teach me all about linear equations to help me draw pretty, moving pictures.</p>
+</div></article><div id="disqus_thread"><script>var disqus_shortname = 'nateeagle',
+	disqus_developer = 1,
+	disqus_url = 'http://nateeagle.com';
+
+	(function() {
+		var d = document, s = d.createElement('script');
+		s.src = `https://${disqus_shortname}.disqus.com/embed.js`;
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();</script></div></section><script src="/bundle.js"></script></body></html>
