@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Six stones vs. Shifu"
-summary: "Spoiler alert: I lose."
+title: 'Six stones vs. Shifu'
+summary: 'Spoiler alert: I lose.'
+draft: true
 ---
 
 <div class="eidogo-player-auto" sgf="/sgf/20140109115231_jaguar_vs_cloudbrows.sgf"></div>
 
-I take lessons every two weeks from "Yuan Zhou":http://zhouyuan.com via Skype and "KGS":http://gokgs.org. Every so often, he'll play a simul game against Diego and me in which we have six handicap stones with free placement. Free placement is an astonishing advantage with handicap stones, allowing you to form your own structures rather than the standard star-point placement.
+I take lessons every two weeks from [Yuan Zhou](http://zhouyuan.com) via Skype and [KGS](http://gokgs.org.) Every so often, he'll play a simul game against Diego and me in which we have six handicap stones with free placement. Free placement is an astonishing advantage with handicap stones, allowing you to form your own structures rather than the standard star-point placement.
 
 For the second or third time, I formed two shimari and then played hoshi (the star point) in the remaining two corners. If I, playing white, looked out at a board like that before my first move, I might break down crying. But not only did I fail to beat Shifu (as I have always failed), I failed to make it close.
 

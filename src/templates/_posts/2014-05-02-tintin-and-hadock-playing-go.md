@@ -1,8 +1,10 @@
 ---
 layout: post
-title: "Tintin and Haddock Playing Go (English Translation)"
+title: 'Tintin and Haddock Playing Go (English Translation)'
 summary: A quick translation of a fan reworking of Go into a Tintin scene.
+draft: true
 ---
+
 One of my favorite recent go discoveries on the web is [Go Go Igo!](http://gogoigo.tumblr.com/), a French Tumblr. It has a lot of game records from high-profile go matches, none of which I've ever opened, but it also has tons of go-related images from around the web. It doesn't tend to have image sources, which is a shame, but the images themselves are great. Recently, they posted an image of page from _Tintin in Tibet_ showing Tintin and Haddock playing go.
 
 <img src="/images/posts/tintin-haddock-go.jpg" class="l-full" style="max-width: 594px;" alt="Tintin and Haddock Playing Go">

@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "It is fortunate that the satisfaction of go..."
+title: 'It is fortunate that the satisfaction of go...'
 summary: A poem after Go Congress.
+draft: true
 ---
-[//]: # (This post requires two spaces at the end of each line. Make sure you don't accidentally open it and save it in Vim without turning off the part of your .vimrc that strips trailing spaces.)
+
+[//]: # "This post requires two spaces at the end of each line. Make sure you don't accidentally open it and save it in Vim without turning off the part of your .vimrc that strips trailing spaces."
 
 (Written after the 2016 US Go Congress in Boston.)
 
@@ -23,7 +25,7 @@ or delicate preservation of balance,
 the landscape that it leaves,  
 unique and ephemeral,  
 affirms the deep worth  
-of white and black together.  
+of white and black together.
 
 It is easiest to imagine peace in death  
 if it came during a game of go.  

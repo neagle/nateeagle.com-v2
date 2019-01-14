@@ -1,14 +1,24 @@
 html
 	head
 		title NateEagle.com
+		//- link(
+		//- 	href="https://fonts.googleapis.com/css?family=Fira+Sans"
+		//- 	rel="stylesheet"
+		//- )
 
 	body
-		header
-			if home
-				h1.draw.draw-in Nate Eagle
-			else 
-				h1: a.draw.draw-in(href='/') Nate Eagle
-
-		block content
+		.wrapper
+			header(class=home && 'home parallax')
+				if home
+					h1 Nate Eagle
+				else 
+					h1: a.draw.draw-in(href='/') Nate Eagle
+					
+				h2.prompt ~/front-end-dev/
+			.main
+				block content
+				
+			footer
+				include ../_includes/footer.pug
 			
 		script(src='/bundle.js')

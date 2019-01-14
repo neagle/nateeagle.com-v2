@@ -1,21 +1,42 @@
 extends default.pug
 
 block content
-	section.column.post
+	section.post
 		article
-			time=format(date, 'MMMM Do, YYYY')
-			h2=title
+			if heroImage
+				header(
+					class=heroImage ? 'hero' : 'normal'
+					style=`background-image: url(/images/posts/${heroImage})`
+				)
+					time.post-timestamp=utilities.format(date, 'MMMM Do, YYYY')
+					br
+					h2.post-title=title
+			else
+				time.post-timestamp=utilities.format(date, 'MMMM Do, YYYY')
+				h2.post-title=title
+				
 			.content!=content
+			
+	nav.post-navigation
+		p Other posts:
+		ol
+			if previousPost
+				li.previous-post
+					a(href=previousPost.url)=previousPost.title
+		
+			if nextPost
+				li.next-post
+					a(href=nextPost.url)=nextPost.title
 
-		#disqus_thread
-			script.
-				var disqus_shortname = 'nateeagle',
-					disqus_developer = 1,
-					disqus_url = 'http://nateeagle.com';
+	#disqus_thread
+		script.
+			var disqus_shortname = 'nateeagle',
+				disqus_developer = 1,
+				disqus_url = 'http://nateeagle.com';
 
-					(function() {
-						var d = document, s = d.createElement('script');
-						s.src = `https://${disqus_shortname}.disqus.com/embed.js`;
-						s.setAttribute('data-timestamp', +new Date());
-						(d.head || d.body).appendChild(s);
-					})();
+				(function() {
+					var d = document, s = d.createElement('script');
+					s.src = `https://${disqus_shortname}.disqus.com/embed.js`;
+					s.setAttribute('data-timestamp', +new Date());
+					(d.head || d.body).appendChild(s);
+				})();

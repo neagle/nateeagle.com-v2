@@ -1,5 +1,41 @@
+$text-color: hsl(0, 0%, 20%);
+
+$color-primary: hsl(20, 100%, 50%);
+
+$major-link-background: hsl(20, 100%, 50%);
+$major-link-background-hover: hsl(40, 100%, 50%);
+$major-link-text: transparentize(white, 0.1);
+$major-link-text-hover: transparentize(white, 0.1);
+
+$typeface-sans-serif: coves, sans-serif;
+$typeface-serif: Average;
+$typeface-monospace: dm, monospace;
+$typeface-body: $typeface-serif;
+$typeface-headers: $typeface-sans-serif;
+$typeface-code: $typeface-monospace;
+
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=#{$typeface-body}');
+@import 'fonts/dank-mono';
+@import 'fonts/coves';
 @import 'components/draw';
-@import '~highlight.js/styles/zenburn.css';
+@import 'components/posts-list';
+@import '~highlight.js/styles/arduino-light.css';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+/* Box-sizing reset
+   @see https://www.paulirish.com/2012/box-sizing-border-box-ftw/
+*/
+html {
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
 
 html {
 	margin: 0;
@@ -7,17 +43,435 @@ html {
 }
 
 body {
+	color: $text-color;
 	font: {
-		family: sans-serif;
+		// family: Roboto, sans-serif;
+		family: $typeface-body, serif;
+		size: 18px;
+		weight: 300;
 	}
+	line-height: 1.5;
 	margin: 0;
-	padding: 50px;
+	// padding: 50px;
+}
+
+.wrapper {
+	/* The height needs to be set to a fixed value for the effect to work.
+   * 100vh is the full height of the viewport. */
+	height: 100vh;
+	/* The scaling of the images would add a horizontal scrollbar, so disable x overflow. */
+	overflow-x: hidden;
+	/* Enable scrolling on the page. */
+	overflow-y: auto;
+	/* Set the perspective to 2px. This is essentailly the simulated distance from the viewport to transformed objects.*/
+	perspective: 2px;
+}
+
+.parallax::after {
+	/* Display and position the pseudo-element */
+	content: ' ';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	/* Move the pseudo-element back away from the camera,
+   * then scale it back up to fill the viewport.
+   * Because the pseudo-element is further away, it appears to move more slowly, like in real life. */
+	transform: translateZ(-1px) scale(1.5);
+	/* Force the background image to fill the whole element. */
+	background-size: 100%;
+	/* Keep the image from overlapping sibling elements. */
+	z-index: -1;
 }
 
 header {
+	padding: 5rem 5rem 0 5rem;
+
+	&.home {
+		min-height: #{100 * (2/3)}vh;
+		margin-bottom: 5rem;
+
+		&:after {
+			background: {
+				// image: url(/images/covers/sato-porch.jpg);
+				// image: url(/images/covers/fushimi-inari-green-tea.jpg);
+				image: url(/images/covers/hiei-zan.jpg);
+				// size: cover;
+				// attachment: fixed;
+				// position: center bottom;
+				// repeat: no-repeat;
+			}
+		}
+	}
+
 	h1 {
-		font-size: 72px;
-		line-height: 2;
+		color: hsl(0%, 0%, 20%);
+		font: {
+			size: 72px;
+			weight: 700;
+		}
+		line-height: 1;
 		margin: 0;
+		text-transform: uppercase;
+
+		a {
+			color: hsl(0%, 0%, 20%);
+			text-decoration: none;
+			transition: all 0.2s;
+
+			&:hover {
+				color: $major-link-background-hover;
+			}
+		}
+	}
+
+	h2 {
+		font: {
+			size: 2rem;
+		}
+		margin: 0;
+	}
+}
+
+.prompt {
+	font: {
+		family: $typeface-code;
+	}
+}
+
+.main {
+	background-color: white;
+	padding: {
+		top: 5rem;
+	}
+}
+
+.lists-container {
+	display: grid;
+	grid-template-columns: 5fr 1fr;
+	grid-template-areas: 'posts tags';
+	padding: 0 5rem 5rem;
+}
+
+.posts-list {
+	grid-area: posts;
+}
+
+.tags-list {
+	grid-area: tags;
+}
+
+footer {
+	background: $color-primary;
+	color: white;
+	padding: 3rem 5rem;
+	font: {
+		family: $typeface-sans-serif;
+		weight: normal;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font: {
+		family: $typeface-headers;
+		weight: normal;
+	}
+}
+
+code {
+	font: {
+		family: $typeface-code;
+		size: 18px;
+	}
+}
+
+img {
+	max-width: 100%;
+}
+
+// img[src*='?full-width'] {
+// 	width: 100%;
+// 	opacity: 0;
+// 	transition: opacity 0.5s;
+//
+// 	&[style] {
+// 		opacity: 1;
+// 	}
+// }
+
+@keyframes highlight {
+	0% {
+		background-size: 0%, 100%;
+	}
+	100% {
+		background-size: 100%, 100%;
+	}
+}
+
+p a,
+.highlight-links a {
+	color: $text-color;
+	position: relative;
+	text-decoration: none;
+	transition: all 0.3s;
+
+	$color1: hsl(50, 100%, 80%);
+	$color2: hsl(50, 100%, 70%);
+	$height: 0.4em;
+	background: {
+		size: 0%, 100%;
+		repeat: no-repeat;
+		image: linear-gradient(
+				to top,
+				$color2 0,
+				$color2 $height,
+				transparent $height,
+				transparent
+			),
+			linear-gradient(
+				to top,
+				transparent 0,
+				transparent $height/4,
+				$color1 $height/4,
+				$color1 $height - $height/4,
+				transparent $height - $height/4,
+				transparent
+			);
+	}
+
+	&:hover {
+		background: {
+			size: 100%, 100%;
+		}
+		// animation: {
+		// 	name: highlight;
+		// 	fill-mode: forwards;
+		// 	iteration-count: 1;
+		// 	duration: 0.5s;
+		// }
+	}
+
+	// &:before {
+	// 	background: hsl(50, 100%, 70%);
+	// 	bottom: 0;
+	// 	content: '';
+	// 	height: 0.4em;
+	// 	position: absolute;
+	// 	left: 0;
+	// 	right: 0;
+	// 	z-index: -1;
+	// }
+
+	// &:hover {
+	// 	&:before {
+	// 		animation: {
+	// 			name: highlight;
+	// 			iteration-count: 1;
+	// 			duration: 0.5s;
+	// 		}
+	// 	}
+	// }
+}
+
+.post {
+	margin: 0 5rem;
+}
+
+.post-title {
+	font: {
+		size: 36px;
+		weight: 700;
+	}
+	line-height: 1.2;
+}
+
+.post-timestamp {
+	color: hsl(0, 0%, 80%);
+	font: {
+		family: $typeface-sans-serif;
+		weight: bold;
+	}
+	// text-transform: uppercase;
+}
+
+.post-summary {
+	margin: 0 0 2rem;
+}
+
+.post-navigation {
+	margin: 1em 0;
+	padding: 0 5rem;
+
+	p {
+		font: {
+			weight: 700;
+		}
+		margin: 0;
+	}
+
+	ol {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+
+		a {
+			// background: $major-link-background;
+			// color: $major-link-text;
+			// display: inline-block;
+			// padding: 0.5em 1em;
+
+			position: relative;
+			text-decoration: none;
+
+			&:before,
+			&:after {
+				font: {
+					family: 'dm', monospace;
+				}
+			}
+		}
+	}
+
+	.previous-post {
+		a {
+			&:before {
+				content: '<-';
+				padding: {
+					right: 0.5em;
+				}
+				position: absolute;
+				left: 0;
+				transform: translateX(-100%);
+			}
+		}
+
+		&:not(:last-child) {
+			margin: {
+				right: 0.5rem;
+			}
+
+			a {
+				&:after {
+					content: '/';
+					padding-left: 0.5rem;
+				}
+			}
+		}
+	}
+
+	.next-post {
+		a {
+			&:after {
+				content: '->';
+				padding: {
+					left: 0.5em;
+				}
+			}
+		}
+	}
+}
+
+.tags {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	grid-template-areas: 'tags-header tags-list';
+
+	line-height: 1.5rem;
+
+	h2 {
+		grid-area: tags-header;
+		font: {
+			size: 1.5rem;
+		}
+		line-height: 1.5rem;
+		margin: 0 0.5rem 2rem 0;
+	}
+
+	ul {
+		grid-area: tags-list;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		line-height: 1;
+		white-space: nowrap;
+	}
+
+	a.tag {
+		font: {
+			family: $typeface-code;
+			size: 1rem;
+		}
+		line-height: 1.5rem;
+		margin-bottom: 0.2rem;
+	}
+}
+
+.count {
+	color: hsla(0, 0%, 0%, 0.2);
+	font: {
+		family: $typeface-code;
+		size: 1rem;
+	}
+}
+
+#disqus_thread {
+	margin: 5rem;
+}
+
+::selection {
+	background: $major-link-background-hover; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+	background: $major-link-background-hover; /* Gecko Browsers */
+}
+
+.l-full {
+	margin: 0 -5rem;
+	width: calc(100% + 10rem);
+}
+
+.l-large {
+	max-width: 100%;
+}
+
+.hero {
+	margin: 0 -5rem 5rem;
+	background: {
+		attachment: fixed;
+		size: cover;
+	}
+	min-height: 25vh;
+	padding: 5rem 5rem 5rem 0;
+
+	.post-title,
+	.post-timestamp {
+		background: hsla(0, 0%, 0%, 0.8);
+		display: inline-block;
+		padding: 0.5rem 1rem;
+		padding-left: 5rem;
+	}
+
+	.post-title {
+		color: white;
+	}
+
+	.post-timestamp {
+		color: hsla(0, 0%, 100%, 0.5);
+		padding-bottom: 0;
 	}
 }

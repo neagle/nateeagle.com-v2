@@ -1,8 +1,10 @@
 ---
 layout: post
-title: "Nine Stones"
+title: 'Nine Stones'
 summary: A story from one of my first experiences at a go club.
+draft: true
 ---
+
 I scratch my head and frown at the board.
 I sniff air through my nostrils like a bull.
 I place a stone next to the white invader

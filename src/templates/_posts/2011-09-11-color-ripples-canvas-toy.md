@@ -1,31 +1,32 @@
 ---
 layout: post
-title: "Color Ripples: a Canvas Toy"
-summary: "In which the presentation of a simple canvas visualization sparks sad remembrance of my highschool math education."
+title: 'Color Ripples: a Canvas Toy'
+summary:
+  'In which the presentation of a simple canvas visualization sparks sad remembrance of my highschool math education.'
 ---
+
 Here's a little bit of colorful distraction for a rainy afternoon.
 
 <iframe style="width: 100%; height: 500px" src="http://jsfiddle.net/nate/dyVPR/embedded/result,js,html"></iframe>
 
-Playing with @canvas@ is fun. However, you may notice, if you glance through the code, that there are really only five lines of code that are canvas-specific. (A few more if you count the setup.)
+Playing with `canvas` is fun. However, you may notice, if you glance through the code, that there are really only five lines of code that are canvas-specific. (A few more if you count the setup.)
 
-{% highlight js %}
-var $canvas = $( 'canvas' ),
-    canvas = $canvas[0],
-    ctx = canvas.getContext( '2d' ),
-
-    drawPoint = function( x, y, radius, color ) {
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc( x, y, radius, 0, Math.PI * 2, false );
-        ctx.closePath();
-        ctx.fill();
-    }
-{% endhighlight %}
+```js
+var $canvas = $('canvas'),
+	canvas = $canvas[0],
+	ctx = canvas.getContext('2d'),
+	drawPoint = function(x, y, radius, color) {
+		ctx.fillStyle = color
+		ctx.beginPath()
+		ctx.arc(x, y, radius, 0, Math.PI * 2, false)
+		ctx.closePath()
+		ctx.fill()
+	}
+```
 
 This is the code for, well, drawing a circle. _All_ of the rest of it is just various math and adjustments on where and how to draw those circles.
 
-I spent basically all of my highschool math courses messing around with "my graphing calculator":http://education.ti.com/educationportal/sites/US/productDetail/us_ti83p.html and "TI Basic":http://en.wikipedia.org/wiki/TI-BASIC. I made a little magic eight ball program that gave different responses based on a random number; I made programs to take care of the quadratic equation for me. (Note: I spent more time fussing with the formatting and look of the UI for entering numbers than I did with the calculations - I was a front-end developer in the making!) I finally dropped out of AP Calculus when being clever about my calculator could no longer make up for the fact that I wasn't learning a lick of math.
+I spent basically all of my high school math courses messing around with [my graphing calculator](http://education.ti.com/educationportal/sites/US/productDetail/us_ti83p.html) and [TI Basic](http://en.wikipedia.org/wiki/TI-BASIC). I made a little magic eight ball program that gave different responses based on a random number; I made programs to take care of the quadratic equation for me. (Note: I spent more time fussing with the formatting and look of the UI for entering numbers than I did with the calculations - I was a front-end developer in the making!) I finally dropped out of AP Calculus when being clever about my calculator could no longer make up for the fact that I wasn't learning a lick of math.
 
 I'm grateful for what exposure I had to code - ultimately, even that time messing with TI Basic helped me find my way to a great career. But I can't help but wish that somebody - _any_ adult in my life - had noticed that I spent all my time trying vainly to do stuff with computers and said, "You know, that might not be so wholly irrelevant to his future..."
 
@@ -35,4 +36,4 @@ Couldn't there be a whole Math track for kids who're interested in applying it t
 
 For that matter: are public schools aware of this _now_?
 
-Anyway: I actually had a great highschool Math teacher. Hell, I'd pay a lot of money at this point in my life to go back, sit in that musty portable classroom in Spanaway, Washington and have him teach me all about linear equations to help me draw pretty, moving pictures.
+Anyway: I actually had a great high school Math teacher. Hell, I'd pay a lot of money at this point in my life to go back, sit in that musty portable classroom in Spanaway, Washington and have him teach me all about linear equations to help me draw pretty, moving pictures.

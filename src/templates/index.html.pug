@@ -5,41 +5,34 @@ home: true
 extends _layouts/default.pug
 
 block content
-	section.posts
-		h1 Posts
-			=env
-		ul
-			each post in posts.filter(post => post.layout === 'post').reverse()
-				li.post
-					h2: a.title(
-						href=post.url
-					)
-						=post.title
-
-					.excerpt
-					if post.summary
-						=post.summary
-					else
-						=post.content
-
-					time=post.date
-					
-	section.bits
-		h2 Bits
+	.lists-container 
+		section.posts-list
 			ul
-				each post in posts.filter(post => post.layout === 'bit').reverse()
-					li.bit
-						h2: a.title(
+				each post in posts.filter(post => post.layout === 'post').reverse()
+					li.post
+						h2.post-title: a.title(
 							href=post.url
 						)
 							=post.title
 							
-	section.tags
-		h2 Tags
+						.post-meta 
+							time.post-timestamp=utilities.format(post.date, 'MMMM Do, YYYY')
+							if (post.tags && post.tags.length)
+								.post-tags
+									each tag in post.tags
+										a.tag(href='/tags/' + utilities.slugify(tag))=tag
+
+						.post-summary
+							if post.summary
+								!=post.summary
+							else
+								=post.content
+						
+		section.tags.post-tags
+			h2.prompt tags/
 			ul
 				each tag in Object.keys(tags).sort()
 					li
-						a(href=`/tags/${tag}`)=tag
-							=' '
-							span.count=`(${tags[tag].length})`
+						a.tag(href=`/tags/${tag}`)=tag
+						span.count=`${tags[tag].length}`
 						

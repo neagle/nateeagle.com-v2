@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "Update: Sass Directory Imports With Gulp"
+title: 'Update: Sass Directory Imports With Gulp'
 summary: A simple way to get directory @imports in Sass using Gulp.
 ---
+
 <img src="/images/posts/sass-directory-include.png" class="l-full" style="max-width: 674px;" alt="Screenshot of a directory import">
 
 I like using [Sass](http://sass-lang.com/) so much for writing CSS that I have really only one complaint about the language: it does not, and will not, support [globbing](http://en.wikipedia.org/wiki/Glob_%28programming%29) for its [@imports](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#import). [Nathan Weizenbaum](https://twitter.com/nex3), the primary maintainer of Sass, [explains](https://github.com/hcatlin/libsass/issues/156#issuecomment-34229670):
@@ -17,59 +18,67 @@ A year ago, I [wrote a simple Grunt plugin](/2013/03/30/import-a-whole-directory
 
 But I recently [switched to Gulp](/2014/05/08/gulp-pattern-lint/), so I needed a new solution. I considered writing a gulp plugin, but with Gulp's emphasis on just being JavaScript, I realized that it'd probably be trivially simple to just use some JS inside a Gulp task.
 
-	var gulp = require('gulp');
-	// We'll use the filesystem, path, and glob packages
-	var fs = require('fs');
-	var path = require('path');
-	var glob = require('glob');
+```javascript
+var gulp = require('gulp');
+// We'll use the filesystem, path, and glob packages
+var fs = require('fs');
+var path = require('path');
+var glob = require('glob');
 
-	...
+...
 
-	// Hack the ability to import directories in Sass
-	// Find any _all.scss files and write @import statements
-	// for all other *.scss files in the same directory
-	//
-	// Import the whole directory with @import "somedir/all";
-	gulp.task('sass-includes', function (callback) {
-		var all = '_all.scss';
-		glob('./client/src/scss/**/' + all, function (error, files) {
-			files.forEach(function (allFile) {
-				// Add a banner to warn users
-				fs.writeFileSync(allFile, '/** This is a dynamically generated file **/\n\n');
+// Hack the ability to import directories in Sass
+// Find any _all.scss files and write @import statements
+// for all other *.scss files in the same directory
+//
+// Import the whole directory with @import "somedir/all";
+gulp.task('sass-includes', function (callback) {
+	var all = '_all.scss';
+	glob('./client/src/scss/**/' + all, function (error, files) {
+		files.forEach(function (allFile) {
+			// Add a banner to warn users
+			fs.writeFileSync(allFile, '/** This is a dynamically generated file **/\n\n');
 
-				var directory = path.dirname(allFile);
-				var partials = fs.readdirSync(directory).filter(function (file) {
-					return (
-						// Exclude the dynamically generated file
-						file !== all &&
-						// Only include _*.scss files
-						path.basename(file).substring(0, 1) === '_' &&
-						path.extname(file) === '.scss'
-					);
-				});
+			var directory = path.dirname(allFile);
+			var partials = fs.readdirSync(directory).filter(function (file) {
+				return (
+					// Exclude the dynamically generated file
+					file !== all &&
+					// Only include _*.scss files
+					path.basename(file).substring(0, 1) === '_' &&
+					path.extname(file) === '.scss'
+				);
+			});
 
-				// Append import statements for each partial
-				partials.forEach(function (partial) {
-					fs.appendFileSync(allFile, '@import "' + partial + '";\n');
-				});
+			// Append import statements for each partial
+			partials.forEach(function (partial) {
+				fs.appendFileSync(allFile, '@import "' + partial + '";\n');
 			});
 		});
-
-		callback();
 	});
+
+	callback();
+});
+```
 
 This is inside `Gulpfile.js` in my project root. It accepts a callback and calls it when finished [to make the task synchronous](http://cameronspear.com/blog/handling-sync-tasks-with-gulp-js/). (So that other tasks can list it as a dependency and depend on it being completed before they execute.)
 
-	gulp.task('sass', ['sass-includes'], function () {
+```javascript
+  gulp.task('sass', ['sass-includes'], function () {
+```
 
 The only other thing I had to account for was the `watch` task: I didn't want it to get stuck in an infinite loop when it wrote to an `*.scss` file in response to changes to an `*.scss` file. So I just excluded `_all` in the glob that triggered my `sass` task.
 
-	gulp.watch('client/src/scss/**/!(_all).scss', ['sass']);
+```javascript
+gulp.watch('client/src/scss/**/!(_all).scss', ['sass'])
+```
 
 After that, I added `_all.scss` files to the three directories I wanted to be able to import, and including directories was as easy as this again:
 
-	@import "functions/all";
-	@import "mixins/all";
-	@import "rules/modules/all";
+```scss
+@import 'functions/all';
+@import 'mixins/all';
+@import 'rules/modules/all';
+```
 
 A final note: this isn't exactly the most Gulpy way of doing things. I'm modifying source files rather than dealing with my Sass files as a stream, modifying them, and passing them on through a pipe to the next process. But since Sass doesn't just deal with the files in the stream, it grabs imported files from outside the stream, I can't just find `@import`s in the stream and expand them myself, because it wouldn't work on any imported files. But ideally, we'd have a nice `gulp-sass-glob` plugin that worked that way.

@@ -1,8 +1,9 @@
 ---
-layout: bit
+layout: post
 title: 'Prevent Orphans in Text with Jekyll (Liquid)'
 tags:
   - jekyll
+draft: true
 ---
 
 Having orphaned words in titles is irritating and lame. I was pleased to find that it was relatively easy to insert an &amp;nbsp; entity in front of the final word in a string in Jekyll.

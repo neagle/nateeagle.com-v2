@@ -1,8 +1,10 @@
 ---
 layout: post
-title: "Falling To Pieces"
+title: 'Falling To Pieces'
 summary: The more I want to do, the less I get done.
+draft: true
 ---
+
 Recently I've been feeling the stirrings of ambition to get some personal projects done. For much of the past twenty-two months, I've mostly worked on surviving. Twenty-two months ago my son was born, and my activities were immediately reduced to only the top few on my priority list.
 
 1. Taking care of my son.

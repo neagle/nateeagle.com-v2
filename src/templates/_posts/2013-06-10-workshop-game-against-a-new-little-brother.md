@@ -1,8 +1,11 @@
 ---
 layout: post
-title: "Workshop game against a new little brother"
-summary: A game against a fellow Nate who is forced to go by Nathan because I got here first, dammit.
+title: 'Workshop game against a new little brother'
+summary:
+  A game against a fellow Nate who is forced to go by Nathan because I got here first, dammit.
+draft: true
 ---
+
 !(l-full){max-width:456px}/images/posts/2013-06-09.jpg!
 
 Shifu announced on Sunday that we had a new little brother named Nathan who would be joining us who had just gone 5-0 at the Maryland open in the 4-6 kyu divison. (In Shifu's group, all students are brothers and sisters: anyone who became a student before you is your older brother or sister, anyone who became a student after you is your little brother or sister.)

@@ -1,8 +1,10 @@
 ---
 layout: post
-title: "Progress on GoKibitz"
+title: 'Progress on GoKibitz'
 summary: "This is an update to last week's post: I'm getting something done."
+draft: true
 ---
+
 I'm going to take a break from work to write a little. I'm happy to report that I've had a productive weekend on my most important personal project, [GoKibitz](http://gokibitz.com). For one thing, my compassionate wife read [my post](/2014/04/20/falling-to-pieces/) and has gone out of her way to make time for me to code when we're both home with our son. For another, there's been some [recent conversation on go-related development](http://www.lifein19x19.com/forum/viewtopic.php?f=10&t=10226) at Life in 19x19 that's ramped up my enthusiasm about getting some of the things I've worked on to a point that they could actually be used.
 
 I also put up [the last version of GoKibitz](http://gokibitz.com/demos/2014-05-02/) that I had been working on, and was pleasantly surprised by how much work I had done.

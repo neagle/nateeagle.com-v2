@@ -1,8 +1,11 @@
 ---
 layout: post
-title: "Progress Updates"
-summary: An update to WGo.js, lots of things to learn about Angular, and a preview of GoKibitz.
+title: 'Progress Updates'
+summary:
+  An update to WGo.js, lots of things to learn about Angular, and a preview of GoKibitz.
+draft: true
 ---
+
 <img src="/images/posts/gokibitz-preview.gif" class="l-full" style="max-width: 1195px;">
 
 I've been getting a lot done on GoKibitz (goKibitz? gokibitz? Go Kibitz?) recently. You can see a preview of the move commenting feature above. That's the whole reason I started doing this, really -- I wanted to be able to have comments and discussions on individual moves in game records. There's still tons of work to be done in terms of design (I'm using unmodified Bootstrap right now), but I'm pretty encouraged to have a working prototype.

@@ -1,8 +1,11 @@
 ---
 layout: post
-title: "Blog Redesign"
-summary: I redesigned the blog because why blog about things when you could just endlessly fiddle with code?
+title: 'Blog Redesign'
+summary:
+  I redesigned the blog because why blog about things when you could just endlessly fiddle with code?
+draft: true
 ---
+
 I've been working on this off and on, and I finally decided just to launch it since a) it will never be perfect, and b) I will not be getting significantly more free time any time in the near future.
 
 h2. We're responsive!
@@ -23,7 +26,7 @@ h2. No longer served by Github Pages
 
 I thought it was fun to use Github's pages to host my site last time. Then I realized that it didn't really matter because I'm paying for a VPS anyway. Also I'm doing all my compilation on my own with Grunt, so the fact that Github will run a Jekyll process on its side wasn't really a perk anymore.
 
-It is, of course, still _on_ Github. You can check out "the repo":https://github.com/neagle/nateeagle.com if you feel like it.
+It is, of course, still _on_ Github. You can check out [the repo](https://github.com/neagle/nateeagle.com) if you feel like it.
 
 h2. And actual posts, maybe
 

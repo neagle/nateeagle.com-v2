@@ -25,10 +25,10 @@ Which is awesome. So: that lengthy introduction aside, these are a few of the th
 
 Adding this mapping to your `.vimrc` will let you use `ctrl-x` and `ctrl-c` to cut/copy the current visual selection to OS X's pasteboard.
 
-{% highlight vim %}
+```vim
 vmap <C-x> :!pbcopy<CR>
 vmap <C-c> :w !pbcopy<CR><CR>
-{% endhighlight %}
+```
 
 Via [drydevelopment.com](http://drydevelopment.com/blog/vim-pbcopy-on-os-x.)
 
@@ -68,7 +68,7 @@ Too lengthy to quote, here's [the page](http://vim.wikia.com/wiki/Commenting_out
 
 ### Wrap visual selection in an HTML tag.
 
-{% highlight vim %}
+```vim
 vmap <Leader>w <Esc>:call VisualHTMLTagWrap()<CR>
 function! VisualHTMLTagWrap()
 let tag = input("Tag to wrap block: ")
@@ -78,7 +78,7 @@ exe "normal i<".tag.">"
 normal `<
 endif
 endfunction
-{% endhighlight %}
+```
 
 p. Put it in `~/.vim/scripts/wrapwithtag.vim` and enable in <code>~/.vimrc</code>
 

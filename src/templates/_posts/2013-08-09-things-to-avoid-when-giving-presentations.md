@@ -1,9 +1,12 @@
 ---
 layout: post
-title: "Things to avoid when giving presentations"
-summary: After attending the recent An Event Apart in DC, I'd like to present you with a brief list of things to avoid in presentations.
+title: 'Things to avoid when giving presentations'
+summary:
+  After attending the recent An Event Apart in DC, I'd like to present you with a brief list of things to avoid in presentations.
+draft: true
 ---
-Due to the gracious patronage of AOL, I had the privilege of attending the recent "An Event Apart":http://aneventapart.com/event/washington-dc-2013 in DC. Overall, it was an outstanding event, and I was really glad I was able to attend. But it also made me think about some things that you should definitely not do in presentations.
+
+Due to the gracious patronage of AOL, I had the privilege of attending the recent [An Event Apart](http://aneventapart.com/event/washington-dc-2013) in DC. Overall, it was an outstanding event, and I was really glad I was able to attend. But it also made me think about some things that you should definitely not do in presentations.
 
 h3. 1. Ask rhetorical questions
 
@@ -15,13 +18,13 @@ That seems like you actually care. A little bit. But asking rhetorical questions
 
 h3. 2. Provide links to gists in your slides
 
-Github gists are awesome in many ways. But here's an example of what a link to one looks like: @https://gist.github.com/neagle/1367fef38c6b0d08c985@.
+Github gists are awesome in many ways. But here's an example of what a link to one looks like: `https://gist.github.com/neagle/1367fef38c6b0d08c985`.
 
 This is a great thing for putting in posts/Tweets/IMs/emails, because what it does really well is _go to something when it's clicked on_. What it does really poorly is spend any time in the human brain. I understand the desire to have references in one's slides, but if you're going to have URLs at all (which is questionable), make them human-readable shortlinks.
 
-@http://short.link/my-awesome-demo@
+`http://short.link/my-awesome-demo`
 
-Or perhaps even better: @Google: nate eagle awesome demo@
+Or perhaps even better: `Google: nate eagle awesome demo`
 
 But probably these things don't need to be in your slides at all. Have a separate version of your slides available for people to check out later that does have links. Or provide audience members with a separate reference page.
 

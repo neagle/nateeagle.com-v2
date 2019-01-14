@@ -1,5 +1,5 @@
 ---
-layout: bit
+layout: post
 title: 'Invert the Screen Colors on Your Mac'
 tags:
   - osx

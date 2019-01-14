@@ -1,8 +1,11 @@
 ---
 layout: post
-title: "Planet B-Boy"
-summary: Why did I start playing go? Because I accidentally saw a documentary about breakdancing.
+title: 'Planet B-Boy'
+summary:
+  Why did I start playing go? Because I accidentally saw a documentary about breakdancing.
+draft: true
 ---
+
 When go players talk to each other, we often ask each other how we got into go.
 
 A common vector is chess: [Edward Lasker](http://en.wikipedia.org/wiki/Edward_Lasker), a German International Master in chess, was a vital early exponent of Go in the West. Another common vector is [Hikaru no Go](http://www.hulu.com/hikaru-no-go), an astonishingly good manga/anime that [Joey Hung 8d estimated](http://senseis.xmp.net/?HikaruNoGo) may have tripled the world go population. Both of these were important for me, too. My childhood desire to play chess (I learned the rules, but never any strategy) primed me to be interested in go, and it was when my friend Michael Sullivan got me to watch _Hikaru no Go_ on Hulu that I finally decided to learn to play.

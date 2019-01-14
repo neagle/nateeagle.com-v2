@@ -11,6 +11,7 @@ const Renderer = require('marked').Renderer
 const pug = require('pug')
 const moment = require('moment')
 const { format } = require('date-fns')
+const slugify = require('slugify')
 
 const renderer = new Renderer()
 renderer.code = (code, language) => {
@@ -24,7 +25,7 @@ renderer.code = (code, language) => {
 	return `<pre><code class="hljs ${language}">${highlighted}</code></pre>`
 }
 
-marked.setOptions({ renderer })
+marked.setOptions({ renderer, smartypants: true })
 // marked.setOptions({
 // 	// Highlight code blocks
 // 	highlight: function(code) {
@@ -33,7 +34,7 @@ marked.setOptions({ renderer })
 // })
 
 // Blow away the existing build
-rmdir('./dist/')
+// rmdir('./dist/')
 
 // Build index templates
 function buildIndexes(posts) {
@@ -42,7 +43,7 @@ function buildIndexes(posts) {
 		'src/templates/**/*.pug',
 		{
 			nodir: true,
-			ignore: ['src/templates/_**/*']
+			ignore: ['src/templates/_**/*', 'src/templates/_*']
 		},
 		(err, files) => {
 			// console.log('files', files);
@@ -63,7 +64,10 @@ function buildIndexes(posts) {
 					`dist/${filepath.dir}/${filepath.name}`,
 					compilePug({
 						...yaml,
-						format,
+						utilities: {
+							slugify,
+							format
+						},
 						title: yaml.title,
 						posts,
 						tags: getTags(posts),
@@ -103,7 +107,7 @@ function getPosts() {
 			return file
 		})
 
-		return posts
+		return posts.filter(post => !post.draft)
 	}
 
 	return glob('src/templates/_posts/**/*.md').then(parseFiles)
@@ -113,6 +117,10 @@ function getTags(posts) {
 	const tags = {}
 	posts.forEach(post => {
 		if (post.tags) {
+			if (typeof post.tags === 'string') {
+				post.tags = [post.tags]
+			}
+
 			post.tags.forEach(tag => {
 				if (!tags[tag]) {
 					tags[tag] = []
@@ -150,12 +158,14 @@ function normalizePost(post) {
 		summary: post.summary,
 		content: post.__content,
 		url: post.url,
-		date: post.date
+		date: post.date,
+		tags: post.tags,
+		heroImage: post.heroImage
 	}
 }
 
 function buildPosts(posts) {
-	posts.forEach(post => {
+	posts.forEach((post, i) => {
 		const month = format(post.date, 'MM')
 		const day = format(post.date, 'DD')
 
@@ -167,12 +177,27 @@ function buildPosts(posts) {
 			`src/templates/_layouts/${post.layout}.pug`
 		)
 
+		let previousPost = undefined
+		if (i > 0) {
+			previousPost = normalizePost(posts[i - 1])
+		}
+
+		let nextPost = undefined
+		if (posts.length > i + 1) {
+			nextPost = normalizePost(posts[i + 1])
+		}
+
 		mkdirp.sync(dir)
 		fs.writeFileSync(
 			dir + '/index.html',
 			pugCompiler({
-				format,
+				utilities: {
+					slugify,
+					format
+				},
 				...normalizePost(post),
+				previousPost,
+				nextPost,
 				env: process.env.NODE_ENV
 			}),
 			{ encoding: 'utf-8' }
